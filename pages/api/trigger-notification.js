@@ -4,7 +4,7 @@ import { Novu } from '@novu/node';
 
 const cors = Cors({
   methods: ['POST', 'GET', 'HEAD'],
-  origin: '*'
+  origin: 'http://localhost:8001/'
 })
 
 const novu = new Novu(process.env.NEXT_PUBLIC_NOVU_API_KEY, {
