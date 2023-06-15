@@ -27,7 +27,7 @@ export default async function handler(req, res) {
   // Run the middleware
   await runMiddleware(req, res, cors)
 
-  const { uuid, name, messageContent } = JSON.parse(req.body);
+  const { uuid, name, messageContent } = req.body;
   const workflowTriggerID = process.env.NEXT_WORKFLOW_TRIGGER_ID;
     
   await novu.trigger(workflowTriggerID, {
