@@ -4,6 +4,7 @@ import { Novu } from '@novu/node';
 
 const cors = Cors({
   methods: ['POST', 'GET', 'HEAD'],
+  origin: '*'
 })
 
 const novu = new Novu(process.env.NEXT_PUBLIC_NOVU_API_KEY, {
@@ -27,12 +28,16 @@ export default async function handler(req, res) {
   // Run the middleware
   await runMiddleware(req, res, cors)
 
-  const { uuid } = JSON.parse(req.body);
+  const { uuid, name, messageContent } = JSON.parse(req.body);
   const workflowTriggerID = process.env.NEXT_WORKFLOW_TRIGGER_ID;
     
   await novu.trigger(workflowTriggerID, {
     to: {
       subscriberId: uuid,
+    },
+    payload: {
+      username: name, 
+      message: messageContent,
     },
   });
 
